@@ -1,16 +1,12 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
-import { DictType } from '@/app/lib/type/dictType';
+import { DictType } from '@/app/lib/types/dictType';
 import { FaGoogle } from 'react-icons/fa';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigationLoading } from '@/app/lib/hooks/useNavigationLoading';
-import {
-  AUTH_MESSAGES,
-  AUTH_LABELS,
-  AUTH_ERROR_MESSAGES,
-} from '@/app/lib/constants';
+import { AUTH_MESSAGES, AUTH_LABELS } from '@/app/lib/constants';
 
 interface SocialLoginsProps {
   dictionary: DictType;
@@ -34,14 +30,19 @@ export default function RenderSocialLogins({
       });
 
       if (result?.error) {
-        toast.error(loginDict?.googleSignInError || AUTH_MESSAGES.GOOGLE_SIGN_IN_FAILED);
+        toast.error(
+          loginDict?.googleSignInError || AUTH_MESSAGES.GOOGLE_SIGN_IN_FAILED
+        );
       } else if (result?.ok) {
-        toast.success(loginDict?.login_successful || AUTH_MESSAGES.LOGIN_SUCCESSFUL);
+        toast.success(
+          loginDict?.login_successful || AUTH_MESSAGES.LOGIN_SUCCESSFUL
+        );
         push(`/${locale}/user/home`);
       }
-    } catch (err) {
-      console.error(AUTH_ERROR_MESSAGES.GOOGLE_SIGN_IN_ERROR, err);
-      toast.error(loginDict?.googleSignInError || AUTH_MESSAGES.GOOGLE_SIGN_IN_FAILED);
+    } catch {
+      toast.error(
+        loginDict?.googleSignInError || AUTH_MESSAGES.GOOGLE_SIGN_IN_FAILED
+      );
     } finally {
       setIsLoading(false);
     }

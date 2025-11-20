@@ -2,12 +2,15 @@ import SessionProvider from '../components/providers/SessionProvider';
 import { ToastProviders } from '../components/providers/ToastProvider';
 import NavigationLoadingProvider from '../components/providers/NavigationLoadingProvider';
 import NavigationProgressBar from '../components/common/NavigationProgressBar';
+import QueryProvider from '../components/providers/QueryProvider';
 import '../globals.css';
 import { getDictionary } from '../lib/get-dictionary';
 import { getSupportedLocales } from '../lib/i18n-config';
 import CreateI18nProvider from './i18n-provider';
 import LanguageSwitcher from '@/app/components/common/LanguageSwitcher';
-import UserProfile from '@/app/components/common/UserProfile';
+import Header from './RenderHeader';
+import Footer from './RenderFooter';
+
 import { Suspense } from 'react';
 import Loading from '../components/common/Loading';
 
@@ -32,23 +35,31 @@ export default async function RenderLocaleLayout({
         <Suspense fallback={null}>
           <NavigationProgressBar />
         </Suspense>
-        <SessionProvider>
-          <Suspense fallback={<Loading variant="dots" text="Loading..." />}>
-            <NavigationLoadingProvider>
-              <CreateI18nProvider locale={locale} dictionary={dictionary}>
-                <header className="border-b border-gray-200 bg-white">
-                  <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-                    <LanguageSwitcher dictionary={dictionary} />
-                    <UserProfile locale={locale} dict={dictionary} />
+        <QueryProvider>
+          <SessionProvider>
+            <Suspense fallback={<Loading variant="dots" text="Loading..." />}>
+              <NavigationLoadingProvider>
+                <CreateI18nProvider locale={locale} dictionary={dictionary}>
+                  <div className="min-h-screen bg-white font-inter flex flex-col">
+                    <header className="border-b border-gray-200 bg-white">
+                      <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+                        <LanguageSwitcher dictionary={dictionary} />
+                      </div>
+                    </header>
+                    <Header
+                      locale={locale as 'en' | 'vi'}
+                      dictionary={dictionary}
+                    />
+                    <main className="grow">
+                      <ToastProviders>{children}</ToastProviders>
+                    </main>
+                    <Footer dictionary={dictionary} />
                   </div>
-                </header>
-                <main>
-                  <ToastProviders>{children}</ToastProviders>
-                </main>
-              </CreateI18nProvider>
-            </NavigationLoadingProvider>
-          </Suspense>
-        </SessionProvider>
+                </CreateI18nProvider>
+              </NavigationLoadingProvider>
+            </Suspense>
+          </SessionProvider>
+        </QueryProvider>
       </body>
     </html>
   );
