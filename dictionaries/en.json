@@ -1,15 +1,85 @@
 {
   "homepage": {
-    "title": "Welcome to Blog Admin",
-    "greeting": "Hello, Admin User!",
-    "viewPosts": "View Posts"
+    "title": "No matter where you're going to, we'll take you there.",
+    "greeting": "Explore new places, create unforgettable memories.",
+    "viewPosts": "View Posts",
+    "findTour": "Find Tour",
+    "loading": "Loading destinations...",
+    "searchResults": "Search Results",
+    "noResults": "No tours found matching your criteria.",
+    "backToHome": "Back to Home",
+    "destinationLabel": "Destination",
+    "dateLabel": "Date",
+    "guestsLabel": "Guests",
+    "day": "day",
+    "days": "days",
+    "maxGuests": "Max",
+    "searching": "Searching...",
+    "filterByPrice": "Filter By Price",
+    "filterByCategories": "Filter By Categories",
+    "applyFilters": "Apply Filters",
+    "buildYourOwnPackage": "Build Your Own Package",
+    "price": "Price",
+    "minPrice": "Min Price",
+    "maxPrice": "Max Price",
+    "sortBy": "Sort By",
+    "priceLow": "Price (Low)",
+    "priceHigh": "Price (High)",
+    "nameAZ": "Name (A-Z)",
+    "toursFound": "tours found",
+    "previous": "Previous",
+    "next": "Next",
+    "viewTour": "View Tour",
+    "unknownDestination": "Unknown"
   },
   "languageSwitcher": {
     "label": "Switch Language"
   },
 
   "common": {
-    "back": "Back"
+    "back": "Back",
+    "header": {
+      "getInTouch": "Get in Touch",
+      "login": "Login",
+      "signUp": "Sign Up",
+      "logout": "Logout",
+      "logoutSuccess": "Logged out successfully!",
+      "logoutFailed": "Logout failed"
+    }
+  },
+  "services": {
+    "category": "Category",
+    "title": "We Offer Best Services",
+    "guidedTours": "Guided Tours",
+    "guidedToursDescription": "Professional guided tours to explore the world's most iconic destinations.",
+    "bestFlightsOptions": "Best Flights Options",
+    "bestFlightsOptionsDescription": "Best flight options with competitive pricing and flexible booking."
+  },
+  "trendingPackages": {
+    "promotion": "Promotion",
+    "title": "Our Trending Tour Packages",
+    "bookNow": "Book Now",
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "errorMessage": "Unable to load trending packages. Please try again.",
+    "retryLabel": "Try Again"
+  },
+  "footer": {
+    "description": "Travel helps companies manage payments easily.",
+    "company": "Company",
+    "aboutUs": "About Us",
+    "careers": "Careers",
+    "blog": "Blog",
+    "pricing": "Pricing",
+    "maldives": "Maldives",
+    "losAngeles": "Los Angeles",
+    "lasVegas": "Las Vegas",
+    "toronto": "Toronto",
+    "joinOurNewsletter": "Join Our Newsletter",
+    "newsletterDescription": "Will send you weekly updates for your better tour packages.",
+    "subscribe": "Subscribe",
+    "copyright": "Travel. All Rights Reserved."
   },
   "auth": {
     "login": {
