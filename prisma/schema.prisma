@@ -95,6 +95,7 @@ model Tour {
   departure_location String?           @db.VarChar(255)
   departure_time     DateTime?         @db.Time
   return_time        DateTime?         @db.Time
+  start_date         DateTime?         @db.Date
   what_included      Json?             @db.JsonB
   what_not_included  Json?             @db.JsonB
   created_at         DateTime?         @default(now())
@@ -254,7 +255,7 @@ model Comment {
   // Relations
   user              User      @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   review            Review    @relation(fields: [review_id], references: [review_id], onDelete: Cascade)
-  
+
   // Quan hệ tự tham chiếu (comment trả lời comment)
   parent            Comment?  @relation("CommentReplies", fields: [parent_comment_id], references: [comment_id], onDelete: Cascade, onUpdate: NoAction)
   replies           Comment[] @relation("CommentReplies")
