@@ -112,6 +112,7 @@ export const AUTH_LOGIN_CONSTANTS = {
   SIGNING_IN: 'Signing in...',
   SIGN_IN: 'Sign In',
   USER_HOME_PATH: '/user/home',
+  ADMIN_HOME_PATH: '/admin/bookings',
   LOGIN_ERROR_PREFIX: 'Login error:',
   LOGIN_FAILED_MESSAGE: 'Login failed',
 } as const;
@@ -186,6 +187,8 @@ export const TRENDING_PACKAGES_SECTION_CONSTANTS = {
   PROMOTION: 'PROMOTION',
   DEFAULT_TITLE: 'Our Trending Tour Packages',
   BOOK_NOW: 'Book Now',
+  NO_TRENDING_TOURS: 'No trending tours available',
+  COMING_SOON: 'Coming Soon',
   ERROR_MESSAGE: 'Unable to load trending packages. Please try again.',
   RETRY_LABEL: 'Try Again',
 } as const;
@@ -272,4 +275,163 @@ export const QUERY_CONFIG = {
 
 export const TOUR_SEARCH_CONTENT = {
   LOADING: 'Loading tours...',
+} as const;
+
+// Tab IDs
+export const TAB_IDS = {
+  INFORMATION: 'information',
+  TOUR_PLAN: 'tourplan',
+  LOCATION: 'location',
+  GALLERY: 'gallery',
+} as const;
+
+// Default values
+export const DEFAULT_VALUES = {
+  BOOK_NOW: 'Book Now',
+  BOOKING_ERROR: 'Failed to submit booking. Please try again.',
+  NOT_AVAILABLE: 'N/A',
+  LOGIN_TO_BOOK: 'Please login to book this tour',
+  BOOKING_SUCCESS: 'Booking request submitted successfully!',
+  BOOKING_PROCESSING: 'Processing your booking...',
+  BOOKING: 'Booking...',
+  TRAVEL_DESTINATION: 'Travel Destination',
+  DEFAULT_GUESTS: 2,
+  DEFAULT_GUEST_MIN: 1,
+  LOCATION_DESCRIPTION: 'The tour covers major destinations:',
+  LOCATION_NOTE:
+    'Please see the map below for main meeting points and hotel zones.',
+  NO_GALLERY_IMAGES: 'No gallery images available',
+} as const;
+
+// Routes
+export const ROUTES = {
+  TOURS_SEARCH: '/tours/search',
+} as const;
+
+// Error messages
+export const ERROR_MESSAGES = {
+  UNABLE_TO_LOAD_MAP: 'Unable to load map',
+  NO_LOCATION_INFO: 'No location information available',
+  UNAUTHORIZED: 'Unauthorized',
+} as const;
+
+// Google Maps
+export const GOOGLE_MAPS = {
+  SEARCH_BASE_URL: 'https://www.google.com/maps/search/?api=1&query=',
+} as const;
+
+// Form field names
+export const FORM_FIELDS = {
+  LOCALE: 'locale',
+  TOUR_ID: 'tourId',
+  NAME: 'name',
+  EMAIL: 'email',
+  PHONE: 'phone',
+  DATE: 'date',
+  GUESTS: 'guests',
+  MESSAGE: 'message',
+} as const;
+
+// Booking validation messages (fallback messages)
+export const BOOKING_VALIDATION_MESSAGES = {
+  TOUR_ID_REQUIRED: 'Tour ID is required',
+  TOUR_ID_MUST_BE_INTEGER: 'Tour ID must be an integer',
+  TOUR_ID_MUST_BE_POSITIVE: 'Tour ID must be positive',
+  NAME_REQUIRED: 'Name is required',
+  NAME_TOO_SHORT: 'Name must be at least 2 characters',
+  EMAIL_REQUIRED: 'Email is required',
+  EMAIL_INVALID: 'Please enter a valid email address',
+  PHONE_REQUIRED: 'Phone number is required',
+  PHONE_INVALID: 'Please enter a valid phone number',
+  DATE_REQUIRED: 'Departure date is required',
+  DATE_MUST_BE_FUTURE: 'Departure date must be in the future',
+  GUESTS_REQUIRED: 'Number of guests is required',
+  GUESTS_MUST_BE_INTEGER: 'Number of guests must be an integer',
+  GUESTS_MIN: 'At least 1 guest is required',
+  GUESTS_MAX: (maxGuests: number) => `Maximum ${maxGuests} guests allowed`,
+  FILL_ALL_FIELDS: 'Please fill in all required fields',
+  TOUR_NOT_FOUND: 'Tour not found',
+  DUPLICATE_BOOKING: 'You have already booked this tour for this date.',
+  BOOKING_SUCCESS: 'Booking request submitted successfully!',
+  BOOKING_ERROR: 'Failed to create booking. Please try again.',
+} as const;
+
+// Booking status values
+export const BOOKING_STATUS = {
+  PENDING: 'pending',
+  CONFIRMED: 'confirmed',
+  CANCELLED: 'cancelled',
+} as const;
+
+// Default locale
+export const DEFAULT_LOCALE = 'en' as const;
+
+// Locale strings for date formatting
+export const LOCALE_STRINGS = {
+  VIETNAMESE: 'vi-VN',
+  ENGLISH: 'en-US',
+} as const;
+
+// Placeholder image URLs
+export const PLACEHOLDER_IMAGES = {
+  TOUR: 'https://placehold.co/60x40/1e40af/ffffff?text=Tour',
+  ADMIN_AVATAR: 'https://placehold.co/40x40/3b82f6/ffffff?text=AD',
+} as const;
+
+// Admin Bookings Constants
+export const ADMIN_BOOKINGS_CONSTANTS = {
+  ADMIN_BADGE: 'ADMIN',
+  MAIN_MENU: 'Main Menu',
+  CONTENT_AND_STATS: 'Content & Stats',
+  ADMIN_USER: 'Admin User',
+  ADMIN_EMAIL: 'admin@travel.com',
+  BOOKING_REQUESTS: 'Booking Requests',
+  SEARCH_PLACEHOLDER: 'Search bookings...',
+  PENDING_REQUESTS: 'Pending Requests',
+  CONFIRMED_BOOKINGS: 'Confirmed Bookings',
+  TOTAL_REVENUE: 'Total Revenue',
+  VS_LAST_MONTH: 'vs last month',
+  FILTER: 'Filter',
+  EXPORT: 'Export',
+  BOOKING_ID: 'Booking ID',
+  USER_INFO: 'User Info',
+  TOUR_DETAILS: 'Tour Details',
+  DATES_AND_GUESTS: 'Dates & Guests',
+  TOTAL_AND_PAYMENT: 'Total & Payment',
+  STATUS: 'Status',
+  ACTIONS: 'Actions',
+  APPROVE: 'Approve',
+  REJECT: 'Reject',
+  NO_BOOKINGS_FOUND: 'No bookings found',
+  TRY_ADJUSTING_SEARCH: 'Try adjusting your search or filters.',
+  LOADING_BOOKINGS: 'Loading bookings...',
+  GUEST: 'Guest',
+  GUESTS: 'Guests',
+  UNKNOWN_TOUR: 'Unknown Tour',
+  NOT_AVAILABLE: 'N/A',
+  SHOWING_ENTRIES: 'Showing {from} to {to} of {total} entries',
+  PREVIOUS: 'Previous',
+  NEXT: 'Next',
+  DASHBOARD: 'Dashboard',
+  MANAGE_BOOKINGS: 'Manage Bookings',
+  MANAGE_TOURS: 'Manage Tours',
+  MANAGE_USERS: 'Manage Users',
+  USER_REVIEWS: 'User Reviews',
+  CATEGORIES: 'Categories',
+  REVENUE: 'Revenue',
+  REPORTS: 'Reports',
+  UNPAID: 'Unpaid',
+  PAID: 'Paid',
+  FAILED: 'Failed',
+  PENDING: 'Pending',
+  CONFIRMED: 'Confirmed',
+  CANCELLED: 'Cancelled',
+  ALL: 'All',
+  BANKING: 'Banking',
+  CREDIT_CARD: 'Credit Card',
+  PAID_BANKING: 'Paid (Banking)',
+  PAID_CREDIT_CARD: 'Paid (Credit Card)',
+  BOOKING_HAS_BEEN: 'Booking {id} has been {status}!',
+  FAILED_TO_UPDATE: 'Failed to update booking status',
+  FAILED_TO_LOAD_BOOKINGS: 'Failed to load bookings',
 } as const;

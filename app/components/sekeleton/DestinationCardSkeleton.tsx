@@ -1,5 +1,5 @@
 import React from 'react';
-import Skeleton from '../sekeleton/Skeleton';
+import Skeleton from './Skeleton';
 
 export default function DestinationCardSkeleton() {
   return (

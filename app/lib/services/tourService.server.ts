@@ -1,7 +1,12 @@
 'use server';
 
-import { cacheTag } from 'next/cache';
-import { fetchTours, fetchTrendingTours, searchTours } from './tourService';
+import { cacheLife, cacheTag } from 'next/cache';
+import {
+  fetchTourById,
+  fetchTours,
+  fetchTrendingTours,
+  searchTours,
+} from './tourService';
 import type { SearchToursParams } from './tourService';
 import { CACHE_TAGS } from './cacheTags';
 
@@ -24,4 +29,11 @@ export const searchToursAction = async (params: SearchToursParams) => {
   cacheTag(CACHE_TAGS.TOURS);
   cacheTag(CACHE_TAGS.TOURS_SEARCH);
   return searchTours(params);
+};
+
+export const getTourById = async (tourId: number) => {
+  'use cache';
+  cacheTag(CACHE_TAGS.TOURS);
+  cacheTag(CACHE_TAGS.TOUR_DETAIL);
+  return fetchTourById(tourId);
 };
