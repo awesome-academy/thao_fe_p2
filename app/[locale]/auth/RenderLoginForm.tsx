@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn, SignInOptions } from 'next-auth/react';
+import { signIn, SignInOptions, getSession } from 'next-auth/react';
 import { DictType } from '@/app/lib/types/dictType';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -51,7 +51,16 @@ export default function RenderLoginForm({
         toast.success(
           loginDict?.login_successful || AUTH_LOGIN_CONSTANTS.LOGIN_SUCCESSFUL
         );
-        push(`/${locale}/`);
+
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        const session = await getSession();
+        const userRole = session?.user?.role;
+
+        if (userRole === 'admin') {
+          push(`/${locale}${AUTH_LOGIN_CONSTANTS.ADMIN_HOME_PATH}`);
+        } else {
+          push(`/${locale}/`);
+        }
       }
     } catch {
       toast.error(

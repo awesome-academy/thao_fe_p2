@@ -441,3 +441,122 @@ export const searchTours = async (
     throw error;
   }
 };
+
+export const fetchTourById = async (tourId: number): Promise<Tour | null> => {
+  try {
+    const tour = await prisma.tour.findUnique({
+      where: {
+        tour_id: tourId,
+      },
+      include: {
+        categories: {
+          include: {
+            category: true,
+          },
+        },
+        destinations: {
+          include: {
+            destination: true,
+          },
+        },
+        gallery: {
+          select: {
+            image_id: true,
+            tour_id: true,
+            image_url: true,
+            caption: true,
+          },
+        },
+        plans: {
+          select: {
+            plan_day_id: true,
+            tour_id: true,
+            day_number: true,
+            title: true,
+            description: true,
+            inclusions: true,
+          },
+          orderBy: {
+            day_number: 'asc',
+          },
+        },
+        reviews: {
+          select: {
+            review_id: true,
+            rating: true,
+          },
+        },
+        _count: {
+          select: {
+            reviews: true,
+          },
+        },
+      },
+    });
+
+    if (!tour) {
+      return null;
+    }
+
+    const ratingBreakdowns = await prisma.review.groupBy({
+      by: ['tour_id', 'rating'],
+      where: {
+        tour_id: tourId,
+      },
+      _count: {
+        review_id: true,
+      },
+    });
+
+    const averageRatings = await prisma.review.groupBy({
+      by: ['tour_id'],
+      where: {
+        tour_id: tourId,
+      },
+      _avg: {
+        rating: true,
+      },
+    });
+
+    const breakdownMap = new Map<number, RatingBreakdown>();
+    const avgRatingMap = new Map<number, number>();
+
+    ratingBreakdowns.forEach((item) => {
+      if (!breakdownMap.has(item.tour_id)) {
+        breakdownMap.set(item.tour_id, { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 });
+      }
+      const breakdown = breakdownMap.get(item.tour_id)!;
+      breakdown[item.rating as keyof RatingBreakdown] = item._count.review_id;
+    });
+
+    averageRatings.forEach((item) => {
+      if (item._avg.rating) {
+        avgRatingMap.set(item.tour_id, item._avg.rating);
+      }
+    });
+
+    const reviewCount = tour._count.reviews;
+    const avgRating = avgRatingMap.get(tour.tour_id);
+    const averageRating = avgRating ? Math.round(avgRating * 10) / 10 : 0;
+    const ratingBreakdown: RatingBreakdown = breakdownMap.get(tour.tour_id) || {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+    };
+
+    return {
+      ...tour,
+      price_per_person: Number(tour.price_per_person),
+      _count: {
+        reviews: reviewCount,
+      },
+      averageRating,
+      ratingBreakdown,
+    } as unknown as Tour;
+  } catch (error) {
+    console.error('Error fetching tour by ID:', error);
+    throw error;
+  }
+};

@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
 import { DictType } from '../lib/types/dictType';
 import { TRENDING_PACKAGES_SECTION_CONSTANTS } from '../lib/constants';
 import { getTrendingTours } from '../lib/services/tourService.server';
 import type { TrendingTour } from '../lib/types/tourTypes';
+import TourBookingButton from '../components/common/TourBookingButton';
 
 interface RenderTrendingPackagesSectionProps {
   dictionary: DictType;
@@ -24,7 +24,10 @@ export default async function RenderTrendingPackagesSection({
     return (
       <section id="packages" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-500">No trending tours available</p>
+          <p className="text-gray-500">
+            {trendingPackagesDict?.noTrendingTours ||
+              TRENDING_PACKAGES_SECTION_CONSTANTS.NO_TRENDING_TOURS}
+          </p>
         </div>
       </section>
     );
@@ -73,13 +76,12 @@ export default async function RenderTrendingPackagesSection({
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                   {tour.description}
                 </p>
-                <Link
-                  href={`/${locale}/tours/${tour.tour_id}`}
-                  className="block w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg font-semibold transition duration-200 text-center"
-                >
-                  {trendingPackagesDict?.bookNow ||
-                    TRENDING_PACKAGES_SECTION_CONSTANTS.BOOK_NOW}
-                </Link>
+                <TourBookingButton
+                  tourId={tour.tour_id}
+                  startDate={tour.start_date}
+                  locale={locale}
+                  dictionary={dictionary}
+                />
               </div>
             </div>
           ))}

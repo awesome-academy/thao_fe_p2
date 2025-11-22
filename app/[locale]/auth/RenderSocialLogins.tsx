@@ -1,12 +1,16 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { DictType } from '@/app/lib/types/dictType';
 import { FaGoogle } from 'react-icons/fa';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigationLoading } from '@/app/lib/hooks/useNavigationLoading';
-import { AUTH_MESSAGES, AUTH_LABELS } from '@/app/lib/constants';
+import {
+  AUTH_MESSAGES,
+  AUTH_LABELS,
+  AUTH_LOGIN_CONSTANTS,
+} from '@/app/lib/constants';
 
 interface SocialLoginsProps {
   dictionary: DictType;
@@ -26,7 +30,7 @@ export default function RenderSocialLogins({
     try {
       const result = await signIn('google', {
         redirect: false,
-        callbackUrl: `/${locale}/user/home`,
+        callbackUrl: `/${locale}/`,
       });
 
       if (result?.error) {
@@ -37,7 +41,16 @@ export default function RenderSocialLogins({
         toast.success(
           loginDict?.login_successful || AUTH_MESSAGES.LOGIN_SUCCESSFUL
         );
-        push(`/${locale}/user/home`);
+
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        const session = await getSession();
+        const userRole = session?.user?.role;
+
+        if (userRole === 'admin') {
+          push(`/${locale}${AUTH_LOGIN_CONSTANTS.ADMIN_HOME_PATH}`);
+        } else {
+          push(`/${locale}/`);
+        }
       }
     } catch {
       toast.error(

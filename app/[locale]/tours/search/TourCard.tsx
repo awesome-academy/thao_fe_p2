@@ -10,6 +10,7 @@ import {
   HERO_SECTION_CONSTANTS,
 } from '@/app/lib/constants';
 import { DictType } from '@/app/lib/types';
+import { useNavigationLoading } from '@/app/lib/hooks/useNavigationLoading';
 
 interface TourCardProps {
   tour: Tour;
@@ -23,6 +24,8 @@ export default function TourCard({ tour, locale, dictionary }: TourCardProps) {
       ? tour.destinations[0].destination.name
       : dictionary.homepage?.unknownDestination ||
         SEARCH_TOURS_CONSTANTS.UNKNOWN_DESTINATION;
+
+  const { isPending, push } = useNavigationLoading();
 
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row transition duration-300 hover:shadow-xl hover:ring-2 hover:ring-blue-100">
@@ -74,14 +77,22 @@ export default function TourCard({ tour, locale, dictionary }: TourCardProps) {
           <span className="text-2xl font-extrabold text-blue-600">
             ${tour.price_per_person.toFixed(2)}
           </span>
-          <Link
-            href={`/${locale}/tours/${tour.tour_id}`}
-            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-5 rounded-lg transition duration-200 shadow-md"
-          >
-            {dictionary.trendingPackages?.viewTour ||
-              dictionary.trendingPackages?.bookNow ||
-              TRENDING_PACKAGES_SECTION_CONSTANTS.BOOK_NOW}
-          </Link>
+          {tour.start_date && tour.start_date > new Date() ? (
+            <p className="text-gray-500 text-sm">
+              {dictionary.trendingPackages?.comingSoon ||
+                TRENDING_PACKAGES_SECTION_CONSTANTS.COMING_SOON}
+            </p>
+          ) : (
+            <button
+              onClick={() => push(`/${locale}/tours/${tour.tour_id}`)}
+              className={`bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-5 rounded-lg transition duration-200 shadow-md ${isPending ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {isPending
+                ? `${dictionary.trendingPackages?.bookNow || TRENDING_PACKAGES_SECTION_CONSTANTS.BOOK_NOW}...`
+                : dictionary.trendingPackages?.bookNow ||
+                  TRENDING_PACKAGES_SECTION_CONSTANTS.BOOK_NOW}
+            </button>
+          )}
         </div>
       </div>
     </div>
